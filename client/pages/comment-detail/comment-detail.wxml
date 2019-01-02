@@ -1,0 +1,50 @@
+<view wx:if="{{!userInfo}}">
+  <view class="unlogin-card">
+    <view class="unlogin-head"></view>
+    <view class="unlogin-info">
+      <view class="unlogin-text">未登录</view>
+      <view class="unlogin-tips">点击微信登录后方可查看影评</view>
+    </view>
+  </view>
+  <button class='unlogin-btn' open-type='getUserInfo' bindgetuserinfo='onTapLogin'>微信登录</button>
+</view>
+<view wx:else>
+  <view class='movie-container'>
+    <view class="movie-detail">
+      <image class='movie-image' src="{{comment.movieImage}}" bindtap='imgZoom'></image>
+      <view class='movie-title'>{{comment.movieTitle}}</view>
+      <view class='comment-title-container'>
+        <view class='user-avatar-container'>
+          <image src="{{comment.userAvatar}}" class='user-avatar'></image>
+        </view>
+        <view class='comment-title'>{{comment.userName}}的影评</view>
+      </view>
+      <view wx:if="{{comment.type === 'text'}}" class='comment-container'>
+        <view class='comment-left'>”</view>
+        <view class='comment-right'>
+          <view class='comment-content'>{{comment.content}}</view>
+        </view>
+      </view>
+      <view wx:elif="{{comment.type === 'voice'}}">
+        <view class="audio-container" bindtap='onTapAudio'>
+          <image src="{{audioStatus === 0? '/images/play.png' : '/images/stop.png'}}" class='audio-image'></image>
+          <view class='audio-duration'>{{comment.durationText}}</view>
+        </view>
+      </view>
+      <view class='btn-container'>
+        <view class='btn-wrapper' bindtap='onTapStar'>
+          <image class='btn-image' src="{{comment.collectionId? '/images/star.png': '/images/star-disable.png'}}"></image>
+          <view class="btn-text">{{comment.collectionId? '取消收藏': '收藏影评'}}</view>
+        </view>
+        <view wx:if="{{comment.userId !== userInfo.openId && userComments.length === 0}}" class='btn-wrapper' bindtap='onTapEdit'>
+          <image class='btn-image' src="/images/edit.png"></image>
+          <view class='btn-text'>写影评</view>
+        </view>
+        <view wx:if="{{comment.userId !== userInfo.openId && userComments.length > 0}}" class='btn-wrapper' bindtap='goToUserComment'>
+          <image class='btn-image-see' src="/images/see.png"></image>
+          <view class='btn-text'>我的影评</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

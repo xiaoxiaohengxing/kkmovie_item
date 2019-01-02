@@ -1,0 +1,19 @@
+<view class='search-container'>
+  <view class='image-container'>
+    <image src="/images/search.png" class='search-image'></image>
+  </view>
+  <input class='search-input' placeholder="输入电影名称或类型" placeholder-class="search-input-placeholder" bindinput='onTapSearch' value="{{searchContent}}"></input>
+</view>
+<view class="content-container" wx:if="{{movies.length > 0}}">
+  <view wx:for="{{movies}}" wx:for-item="movie" wx:key="{{movie.id}}" class='movie-container' bindtap='goToDetail' data-id="{{movie.id}}">
+    <image src='{{movie.image}}' class='movie-image'></image>
+    <view class='movie-description'>
+      <view class='movie-title'>{{movie.title}}</view>
+      <view class='movie-category'>{{movie.category}}</view>
+    </view>
+  </view>
+</view>
+<view class="movie-empty movie-container" wx:else>
+  <image class="empty-image" src="/images/hot-disable.png"></image>
+  <view class="empty-text">暂无符合要求的热门电影</view>
+</view>

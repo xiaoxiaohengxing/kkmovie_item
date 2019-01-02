@@ -1,0 +1,18 @@
+<view class='movie-container'>
+  <view class="movie-detail">
+    <image class='movie-image' src="{{movie.image}}" bindtap='imgZoom'></image>
+    <view class='movie-title'>{{movie.title}}</view>
+    <view class='movie-category'>{{movie.category}}</view>
+    <view class='movie-description'>{{movie.description}}</view>
+    <view class='btn-container'>
+      <view class='btn-wrapper' bindtap='goToCommentList' data-id="{{movie.id}}">
+        <image class='btn-image-see' src="/images/see.png"></image>
+        <view class='btn-text'>查看影评</view>
+      </view>
+      <view class='btn-wrapper' bindtap='addComment' data-id="{{movie.id}}" wx:if="{{comments.length === 0}}">
+        <image class='btn-image-comment' src="/images/comment.png"></image>
+        <view class='btn-text'>添加影评</view>
+      </view>
+    </view>
+  </view>
+</view>

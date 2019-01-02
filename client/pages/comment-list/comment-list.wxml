@@ -1,0 +1,30 @@
+<view class="comment-list-container">
+  <view wx:if="{{comments.length === 0}}">
+    <view class="unlogin-card">
+      <view class="unlogin-info">
+        <view class="unlogin-text">该影片暂无影评</view>
+      </view>
+    </view>
+  </view>
+  <view wx:elif="{{comments.length > 0}}">
+    <view  wx:for="{{comments}}" wx:for-item="comment" wx:key="comment.id" wx:for-index="idx" class='comment-item' data-id="{{comment.id}}" bindtap='goToCommentDetail'>
+      <view class='comment-title'>
+        <image src='{{comment.userAvatar}}' class='user-avatar'></image>
+        <view class='comment-name-and-time'>
+          <view class='comment-user-name'>{{comment.userName}}</view>
+          <view class='comment-create-time'>{{comment.createTime}}</view>
+        </view>
+      </view>
+      <view wx:if="{{comment.type === 'voice'}}">
+        <view class="audio-container" catchtap='onTapAudio' data-src="{{comment.content}}" data-index="{{idx}}">
+          <image src="{{audioStatus[idx] === 0? '/images/play.png' : '/images/stop.png'}}" class='audio-image'></image>
+          <view class='audio-duration'>{{comment.durationText}}</view>
+        </view>
+      </view>
+      <view wx:elif="{{comment.type === 'text'}}">
+        <view class='comment-content'>{{comment.content}}</view>
+      </view>
+    </view>
+    </view>
+</view>
+<button class='bottom-btn' bindtap='goToHome'>回 到 首 页</button>

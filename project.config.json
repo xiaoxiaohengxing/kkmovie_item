@@ -1,0 +1,66 @@
+{
+	"miniprogramRoot": "client/",
+	"qcloudRoot": "server/",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false
+	},
+	"appid": "wx8cf735b3230851c1",
+	"projectname": "wmp-movie-master",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "movie-list",
+					"pathName": "pages/movie-list/movie-list",
+					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "comment-edit",
+					"pathName": "pages/comment-edit/comment-edit",
+					"query": "commentType=voice&movieId=1"
+				},
+				{
+					"id": -1,
+					"name": "comment-list",
+					"pathName": "pages/comment-list/comment-list",
+					"query": "movieId=1"
+				},
+				{
+					"id": 3,
+					"name": "comment-detail",
+					"pathName": "pages/comment-detail/comment-detail",
+					"query": "commentId=9"
+				},
+				{
+					"id": -1,
+					"name": "user",
+					"pathName": "pages/user/user",
+					"query": ""
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,42 @@
+<view wx:if="{{!userInfo}}">
+  <view class="unlogin-card">
+    <view class="unlogin-head"></view>
+    <view class="unlogin-info">
+      <view class="unlogin-text">未登录</view>
+      <view class="unlogin-tips">点击微信登录后方可查看影评</view>
+    </view>
+  </view>
+  <button class='unlogin-btn' open-type='getUserInfo' bindgetuserinfo='onTapLogin'>微信登录</button>
+</view>
+<view wx:else>
+  <view class='page-title-container'>
+    <view class="{{listType === 0? 'checked-title': 'unchecked-title'}}" bindtap='onTapListType' data-type="0">收藏的影评{{listType === 0? '↓': ''}}</view>
+    <view class="{{listType === 1? 'checked-title': 'unchecked-title'}}" bindtap='onTapListType' data-type="1">发布的影评{{listType === 0? '': '↓'}}</view>
+  </view>
+  <view class='container' wx:if="{{comments.length > 0}}">
+    <view wx:for="{{comments}}" wx:for-item="comment" wx:key="{{comment.commentId}}" class='comment-container' bindtap='goToCommentDetail' data-id="{{comment.commentId}}">
+      <image src='{{comment.movieImage}}' class='movie-image'></image>
+      <view class='movie-description'>
+        <view class='movie-title'>{{comment.movieTitle}}</view>
+        <view wx:if="{{comment.type === 'text'}}">
+          <view class='comment-text'>{{comment.content}}</view>
+        </view>
+        <view wx:if="{{comment.type === 'voice'}}">
+          <view class="audio-container">
+            <image src="/images/play.png" class='audio-image'></image>
+            <view class='audio-duration'>{{comment.durationText}}</view>
+          </view>
+        </view>
+        <view class='user-container'>
+          <image src='{{comment.userAvatar}}' class='user-avatar'></image>
+          <view class='user-name'>{{comment.userName}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="comment-empty comment-container" wx:if="{{comments.length === 0}}">
+    <image class="empty-image" src="{{listType === 0?'/images/star-disable.png':'/images/send-disable.png'}}"></image>
+    <view class="empty-text">{{listType === 0?'您暂时还没有收藏影评':'您暂时还没有发布影评'}}</view>
+  </view>
+  <button class='bottom-btn' bindtap='goToHome'>回 到 首 页</button>
+</view>

@@ -1,0 +1,57 @@
+<view wx:if="{{!userInfo}}">
+  <view class="unlogin-card">
+    <view class="unlogin-head"></view>
+    <view class="unlogin-info">
+      <view class="unlogin-text">未登录</view>
+      <view class="unlogin-tips">点击微信登录后方可进行影评</view>
+    </view>
+  </view>
+  <button class='unlogin-btn' open-type='getUserInfo' bindgetuserinfo='onTapLogin'>微信登录</button>
+</view>
+<view wx:else>
+  <view class='movie-container'>
+    <view class="movie-detail">
+      <image class='movie-image' src="{{movie.image}}"></image>
+      <view class='movie-title'>{{movie.title}}</view>
+      <view class='comment-title-container'>
+        <view class='user-avatar-container'>
+          <image src="{{userInfo.avatarUrl}}" class='user-avatar'></image>
+        </view>
+        <view class='comment-title'>{{userInfo.nickName}}的影评</view>
+      </view>
+      <view wx:if="{{commentType === 'text'}}" class='comment-container'>
+        <view class='comment-left'>”</view>
+        <view class='comment-right'>
+          <textarea placeholder="输入你的影评内容..." auto-focus='true' show-confirm-bar='true' placeholder-class="text-placeholder" bindinput='onInputComment' maxlength='500' value="{{commentContent}}" wx:if="{{editMode}}"></textarea>
+          <view wx:else class='comment-content'>{{commentContent}}</view>
+        </view>
+        <view class='wordCounter' wx:if="{{editMode}}">{{commentContent.length}}/500</view>
+      </view>
+      <view wx:elif="{{commentType === 'voice'}}">
+        <view class="audio-container {{recordAudio? 'visible': 'disvisible'}}" bindtap='onTapAudio'>
+          <image src="{{audioStatus === 0? '/images/play.png' : '/images/stop.png'}}" class='audio-image'></image>
+          <view class='audio-duration'>{{recordAudio.durationText}}</view>
+        </view>
+        <view wx:if="{{editMode && (recordAuthStatus === 0 || recordAuthStatus === 2)}}" class="record-container {{recordStatus === 0 || recordStatus === 2?'':'recording'}}" bindtouchstart='startRecord' bindtouchend='endRecord'>
+          <image src='/images/record.png' class='record-icon'></image>
+          <view class='record-text'>{{recordStatusTip[recordStatus]}}</view>
+        </view>
+        <button open-type="openSetting" bindopensetting="settingCallBack" wx:if="{{editMode && recordAuthStatus === 1}}" class="record-container">
+          <view class='record-text'>授权录音</view>
+        </button>
+      </view>
+
+      <view class='btn-container' wx:if="{{!editMode}}">
+        <view class='btn-wrapper' bindtap='onTapEditBack'>
+          <image class='btn-image-back' src="/images/back.png"></image>
+          <view class='btn-text'>重新编辑</view>
+        </view>
+        <view class='btn-wrapper' bindtap='sendComment' data-id="{{movie.id}}">
+          <image class='btn-image-send' src="/images/send.png"></image>
+          <view class='btn-text'>发布影评</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <button class='bottom-btn' disabled='{{commentContent.length === 0 && !recordAudio}}' bindtap='onTapFinishBtn' wx:if="{{editMode}}">完 成</button>
+</view>

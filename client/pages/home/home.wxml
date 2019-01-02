@@ -1,0 +1,34 @@
+<view wx:if="{{!userInfo}}">
+  <view class="unlogin-card">
+    <view class="unlogin-head"></view>
+    <view class="unlogin-info">
+      <view class="unlogin-text">未登录</view>
+      <view class="unlogin-tips">点击微信登录后方可查看影评</view>
+    </view>
+  </view>
+  <button class='unlogin-btn' open-type='getUserInfo' bindgetuserinfo='onTapLogin'>微信登录</button>
+</view>
+<view wx:else>
+  <view class='container' wx:if="{{comment}}">
+    <image class='movie-image' src="{{comment.movieImage}}" mode='widthFix' bindtap='goToMovieDetail'></image>
+    <view class='movie-title'>{{comment.movieTitle}}</view>
+    <view class='content-wrapper' bindtap='goToCommentDetail'>
+      <image class="user-avatar" src="{{comment.userAvatar}}"></image>
+      <view class='content-text'>{{comment.userName}}给你推荐了一部电影</view>
+    </view>
+  </view>
+  <view class="button-wrapper">
+    <navigator class='button-with-icon' url="/pages/movie-list/movie-list">
+      <image src="/images/hot.png"></image>
+      <text>热门</text>
+    </navigator>
+    <navigator class='button-with-icon' url="/pages/user/user">
+      <image src="/images/me.png"></image>
+      <text>我的</text>
+    </navigator>
+  </view>
+  <view class="movie-empty movie-container" wx:if="{{!comment}}">
+    <image class="empty-image" src="/images/hot-disable.png"></image>
+    <view class="empty-text">暂时还没有可推荐电影</view>
+  </view>
+</view>
